@@ -4,8 +4,9 @@ extends:
   - tslint-eslint-rules
 jsRules:
 rules:
-  eofline: true
-  no-console: true
-  no-construct: true
-  no-debugger: true
-  no-reference: true
+  no-var-requires: false
+  no-submodule-imports: false
+  object-literal-sort-keys: false
+  jsx-no-lambda: false
+  no-implicit-dependencies: false
+  no-console: false
