@@ -1,75 +1,37 @@
-import * as React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Table, Popconfirm, Button } from 'antd';
 
-interface ProductListProps{
-  products:object[];
-  onDelete:(id:number)=>void;
-}
-
-// const columns = [
-//     {
-//       title: 'Name',
-//       dataIndex: 'name',
-//     },
-//     {
-//       title: 'Actions',
-//       render: (text: any, record: { id: number; }) => {
-//         return (
-//           <Popconfirm title="Delete?" onConfirm={() => onDelete(record.id)}>
-//             <Button>Delete</Button>
-//           </Popconfirm>
-//         );
-//       },
-//     },
-//   ]
-
-// const ProductList = (props: ProductListProps) => {
-//     const { products, onDelete} = props;
-    // const columns = [
-    //   {
-    //     title: 'Name',
-    //     dataIndex: 'name',
-    //   },
-    //   {
-    //     title: 'Actions',
-    //     render: (text: any, record: { id: number; }) => {
-    //       return (
-    //         <Popconfirm title="Delete?" onConfirm={() => onDelete(record.id)}>
-    //           <Button>Delete</Button>
-    //         </Popconfirm>
-    //       );
-    //     },
-    //   },
-    // ];
+const ProductList = ({ onDelete, products }:{onDelete :onDelete, products:products}) => {
+  const columns = [{
+    title: 'Name',
+    dataIndex: 'name',
+    key:'name',
+  }, {
+    title: 'Actions',
+    dataIndex: 'actions',
+    key:'actions',
+    render: (text:any, record:{id:number}) => {
+      return (
+        <Popconfirm title="Delete?" onConfirm={onDelete(record.id)}>
+          <Button>Delete</Button>
+        </Popconfirm>
+      );
+    },
+  }];
+  return (
+    <Table
+      dataSource={products}
+      columns={columns}
+      rowKey="id"
+    />
+  );
+};
 
 
-//     return <Table dataSource={products} columns={columns} />;
+ProductList.propTypes = {
+  onDelete: PropTypes.func.isRequired,
+  products: PropTypes.array.isRequired,
+};
 
-//   };
-  
-//   export default ProductList;
-
-
-export default class ProductList extends React.Component<ProductListProps, {}> {
-    render() {
-           const columns = [
-                {
-                    title: 'Name',
-                    dataIndex: 'name',
-                },
-                {
-                    title: 'Actions',
-                    render: (text: any, record: { id: number; }) => {
-                    return (
-                         // tslint:disable-next-line:jsx-no-lambda
-                         <Popconfirm title="Delete?" onConfirm={() =>this.props.onDelete(record.id)}>
-                              <Button>Delete</Button>
-                        </Popconfirm>
-                    );
-                    },
-                },
-                ];
-        return (<Table dataSource={this.props.products} columns={columns} />)
-    }
-    
-}
+export default ProductList;
