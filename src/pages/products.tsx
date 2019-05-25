@@ -4,10 +4,10 @@ import ProductList from '../components/ProductList';
 
 interface ProductAction {
     dispatch(obj:{type:string,payload:number}):any ;
-    products:products  ;
+    qbs:products  ;
 }
-
 const Products = (dis:ProductAction) => {
+	console.log("TCL: Products -> dis", dis)
   function handleDelete(id:number) {
     dis.dispatch({
       type: 'products/delete',
@@ -17,14 +17,21 @@ const Products = (dis:ProductAction) => {
   return (
     <div>
       <h2>List of Products</h2>
-      <ProductList onDelete={handleDelete} products={dis.products} />
+      <ProductList onDelete={handleDelete} products={dis.qbs} />
     </div>
   );
 };
 
 // export default Products;
-export default connect(
-  (obj:ProductAction) => ({
-    products:obj.products
-})
-)(Products);
+let fn =  (obj:any) => {
+console.log("TCL: fn -> obj", obj)
+
+  return {
+    qbs:obj.products,
+    abc:'abc'
+  }
+} ;
+let aa = connect(fn)(Products) ; 
+console.log("TCL: aa", aa)
+
+export default aa;

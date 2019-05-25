@@ -1,5 +1,11 @@
 import React from 'react';
 import styles from './index.css';
+import { Button } from 'antd';
+
+const Authority = ()=>{
+
+  
+}
 
 
 export default function() {
@@ -12,6 +18,12 @@ export default function() {
           <a href="https://umijs.org/guide/getting-started.html">
             Getting Started
           </a>
+        </li>
+        <li>
+        <Button type="primary">点击我添加权限</Button>
+        </li>
+        <li>
+        <Button type="primary">我是个有权限的按钮</Button>
         </li>
       </ul>
     </div>

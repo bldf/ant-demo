@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.less';
 import { Layout, Menu, Icon } from 'antd';
 import Link from 'umi/link';
+import RightHeader from "../components/GlobalHeader/RightHeader" ;
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu; 
 
 
 const BasicLayout: React.FC = props => {
   const [collapsed, setCollapsed]  = React.useState(false) ;
+    // 相当于 componentDidMount 和 componentDidUpdate:
+    useEffect(() => {
+      // 使用浏览器的 API 更新页面标题
+      document.title = `You clicked ${collapsed} times`;
+    });
   const title = ( 
     <span>
         <Icon type="mail" />
@@ -30,11 +36,17 @@ const BasicLayout: React.FC = props => {
         </div>
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
         <Menu.Item key="1">
+        <Link to="/">
           <Icon type="user" />
           <span>nav 1</span>
+          </Link>
         </Menu.Item>
         <SubMenu   key="sub1" title={title}>
-            <Menu.Item key="5">Option 5</Menu.Item>
+            <Menu.Item key="5">
+            <Link to="/products">
+              Option 5
+              </Link>
+              </Menu.Item>
             <Menu.Item key="6">Option 6</Menu.Item>
             <Menu.Item key="7">Option 7</Menu.Item>
             <Menu.Item key="8">Option 8</Menu.Item>
@@ -56,6 +68,7 @@ const BasicLayout: React.FC = props => {
           type={collapsed ? 'menu-unfold' : 'menu-fold'}
           onClick={triggerClick}
         />
+        <RightHeader className={styles['header-right']} />
       </Header>
       <Content className={styles['content']}>
         {props.children}
